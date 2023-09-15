@@ -1,0 +1,37 @@
+# @name GET/prompts
+GET http://localhost:3333/prompts
+
+###
+
+# @name POST/videos
+POST http://localhost:3333/videos
+Content-Type: multipart/form-data; boundary=----WebKitFormBoundary7MA4YWxkTrZu0gW
+
+------WebKitFormBoundary7MA4YWxkTrZu0gW
+Content-Disposition: form-data; name="file"; filename="cu.mp3"
+Content-Type: audio/mpeg
+
+< ./cu.mp3
+------WebKitFormBoundary7MA4YWxkTrZu0gW--
+
+###
+
+# @name POST/createTrancription
+POST http://localhost:3333/videos/fbadb41b-0048-4c54-b08b-29686b6cbfc0/transcription
+Content-Type: application/json
+
+{
+  "prompt": "trancrição"
+}
+
+###
+
+# @name POST/generateAiCompletion
+POST http://localhost:3333/ai/completion
+Content-Type: application/json
+
+{
+  "videoId": "fbadb41b-0048-4c54-b08b-29686b6cbfc0",
+  "prompt": "gere um resumo sucinto da trancirção do vídeo informado a seguir: ''' {transcription} '''",
+  "temperature": 0.5
+}
